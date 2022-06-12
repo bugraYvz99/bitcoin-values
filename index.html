@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>My little pony</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    
+    <h1>Training platform</h1>
+    <h2>Welcome to largest lol Website</h2>
+    <p id="status">Service Status: N/A</p>
+    <button id="button">Call</button>
+
+    <div id = "chart" style="display: none;">
+        <p id="EUR"></p>
+        <p id="GBP"></p>
+        <p id="USD"></p>
+    </div>
+
+    
+    <script type="text/javascript">
+        let mainFrame = document.getElementsByClassName("main-frame");
+        let callButton = document.getElementById("button");
+        let statusText = document.getElementById("status");
+
+        let chart = document.getElementById("chart");
+
+        let euro = document.getElementById("EUR");
+        let usd = document.getElementById("USD");
+        let gbp = document.getElementById("GBP");
+
+        callButton.onclick = function(){
+            statusText.innerHTML = "Service Status: Fetching..."
+            fetch("https://api.coindesk.com/v1/bpi/currentprice.json").then(res => {
+                statusText.innerHTML = `Service Status: ${res.status}`
+                return res.json();
+            }).then(json => {
+                chart.style.display = "block"
+                
+                euro.innerHTML = `<p>${json.bpi.EUR.rate} - ${json.bpi.EUR.description}</p>`;
+                usd.innerHTML = `<p>${json.bpi.USD.rate} - ${json.bpi.USD.description}</p>`;
+                gbp.innerHTML = `<p>${json.bpi.GBP.rate} - ${json.bpi.GBP.description}</p>`;
+
+            });
+        }
+        
+        function hideMainFrames(){
+            console.log(mainFrame);
+
+            for(var i = 0; i < mainFrame.length; i++){
+                mainFrame[i].style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
