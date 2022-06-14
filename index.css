@@ -5,3 +5,11 @@ span{
     
 
 }
+.li{
+    font-variant-ligatures: additional-ligatures;
+    list-style:square
+    
+    
+    
+
+}
